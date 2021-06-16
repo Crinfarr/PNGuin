@@ -1,0 +1,11 @@
+--library format
+
+-cp src
+--main Main
+--each
+--next
+--cpp bin/cpp
+--next
+--neko bin/neko/main.n
+--next
+--hl bin/hl/main.hl

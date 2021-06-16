@@ -1,0 +1,5 @@
+-cp src
+--main Main
+
+--hl bin/hl/main.hl
+--library format
