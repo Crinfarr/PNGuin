@@ -1,13 +1,13 @@
 package;
 
-import format.png.*;
-import Pixels;
+import format.png.Writer;
+import sys.io.File;
 
 class Main {
 	static function main() {
 		if (Sys.args().length == 0) {
 			Sys.println('Usage:');
-			Sys.println('pnguin encode <something.png> <something (raw file)> <language> <pixel offset> <compression degree>');
+			Sys.println('pnguin encode <something.png> <something (raw file)> <pixel offset> <compression degree>');
 			Sys.println('               the file to          the file            the space       the amount of');
 			Sys.println('               write into          to encode         between pixels       compression');
 			Sys.println('pnguin run <something.png>');
@@ -43,7 +43,10 @@ class Main {
 			 * STRING TO HEX:
 			 * Std.parseInt('0x'+n:String);
 			 */
-
+			var args:Array<String> = Sys.args();
+			var out:format.png.Data = PNGuinCore.encode(args[1], args[2], Std.parseInt(args[4]), Std.parseInt(args[3]));
+			var file = new Writer(File.write(args[1], true));
+			file.write(out);
 		}
 	}
 }

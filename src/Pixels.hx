@@ -8,13 +8,20 @@ private typedef RawPxData = {
 	data:format.png.Data,
 	header:format.png.Data.Header
 }
+typedef PxDataPlus = {
+	data:haxe.io.Bytes,
+	width:Int,
+	height:Int,
+	raw:RawPxData
+}
+typedef Pixel = {
+	R:Int,
+	G:Int,
+	B:Int,
+	A:Int
+}
 class Pixels {
-	public static function read(path:String):{
-		data:Bytes,
-		width:Int,
-		height:Int,
-		raw:RawPxData
-	} {
+	public static function read(path:String):PxDataPlus{
 		var handle = File.read(path);
 		var d = new Reader(handle).read();
 		var hdr = Tools.getHeader(d);
@@ -33,12 +40,7 @@ class Pixels {
 
 	}
 
-	public static function getPx(rawpx:RawPxData, xcoord:Int, ycoord:Int):{
-		R:Int,
-		G:Int,
-		B:Int,
-		A:Int
-	} {
+	public static function getPx(rawpx:RawPxData, xcoord:Int, ycoord:Int):Pixel{
 		var pxl:Int = Tools.extract32(rawpx.data).getInt32(4 * (xcoord + ycoord * rawpx.header.width));
 		return {
 			R: (pxl >>> 8) & 0xff,
